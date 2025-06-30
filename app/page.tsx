@@ -1,13 +1,30 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Github, Twitter, MessageSquare } from "lucide-react"
+import { Github, Twitter, MessageSquare, X } from "lucide-react"
 import { NetworkMesh } from "@/components/network-mesh"
 import { GlitchText } from "@/components/glitch-text"
 import { Button } from "@/components/ui/button"
 import { HoverGlowButton } from "@/components/hover-glow-button"
 import { TerminalOutput } from "@/components/terminal-output"
+import { MobileNav } from "@/components/mobile-nav"
 
 export default function Home() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = "auto"
+    }
+    return () => {
+      document.body.style.overflow = "auto"
+    }
+  }, [isMenuOpen])
+
   return (
     <div className="flex min-h-screen flex-col bg-black text-white">
       <header className="border-b border-[#ff0066]/20 backdrop-blur-sm bg-black/50 fixed w-full z-50">
@@ -48,25 +65,35 @@ export default function Home() {
             THE NEW VISION
           </HoverGlowButton>
 
-          <button className="md:hidden text-white">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="3" y1="12" x2="21" y2="12"></line>
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
+          <button
+            className="md:hidden text-white z-50"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? (
+              <X size={24} />
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            )}
           </button>
         </div>
       </header>
+
+      <MobileNav isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
 
       <main className="flex-1 pt-16">
         <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -104,7 +131,10 @@ export default function Home() {
                   tech stack. No rules, just raw consensus. Build what’s next. Expect chaos.
                 </p>
                 <div className="flex space-x-4">
-                  <Button variant="outline" className="border-[#ff0066] text-[#ff0066] hover:bg-[#ff0066]/10">
+                  <Button
+                    variant="outline"
+                    className="border-[#ff0066] text-[#ff0066] hover:bg-[#ff0066]/10 bg-transparent"
+                  >
                     READ THE MANIFESTO
                   </Button>
                   <Button className="bg-[#ff0066] hover:bg-[#ff0066]/80 text-black">DEPLOY CODE</Button>

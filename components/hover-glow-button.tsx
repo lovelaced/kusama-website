@@ -12,6 +12,7 @@ interface HoverGlowButtonProps {
   className?: string
   variant?: "default" | "outline"
   size?: "default" | "sm" | "lg"
+  onClick?: () => void
 }
 
 export function HoverGlowButton({
@@ -20,6 +21,7 @@ export function HoverGlowButton({
   className,
   variant = "default",
   size = "default",
+  onClick,
 }: HoverGlowButtonProps) {
   const [isHovered, setIsHovered] = useState(false)
 
@@ -47,6 +49,7 @@ export function HoverGlowButton({
         )}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        onClick={onClick}
       >
         {children}
       </Link>
