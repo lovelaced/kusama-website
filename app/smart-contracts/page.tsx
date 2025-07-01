@@ -83,9 +83,6 @@ export default function SmartContractsPage() {
               <HoverGlowButton href="#quick-start" variant="default" size="lg">
                 START BUILDING
               </HoverGlowButton>
-              <HoverGlowButton href="#testnet" variant="outline" size="lg">
-                TRY TESTNET
-              </HoverGlowButton>
             </div>
           </div>
         </section>
